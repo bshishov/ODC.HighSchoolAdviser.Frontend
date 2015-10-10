@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+
+        <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css" />
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery.mobile-1.4.5.min.js"></script>
+        <script src="js/handlebars-v4.0.2.js"></script>
+        <title>Hello World</title>
+    </head>
+    <body>
+        <!-- Start of first page: #one -->
+        <div data-role="page" id="one">
+
+            <div data-role="header">
+                <h1>Multi-page</h1>
+            </div><!-- /header -->
+
+            <div role="main" class="ui-content">
+                <h2>One</h2>
+
+                <p>I have an <code>id</code> of "one" on my page container. I'm first in the source order so I'm shown when the page loads.</p>
+
+                <p>This is a multi-page boilerplate template that you can copy to build your first jQuery Mobile page. This template contains multiple "page" containers inside, unlike a single page template that has just one page within it.</p>
+                <p>Just view the source and copy the code to get started. All the CSS and JS is linked to the jQuery CDN versions so this is super easy to set up. Remember to include a meta viewport tag in the head to set the zoom level.</p>
+                <p>You link to internal pages by referring to the <code>id</code> of the page you want to show. For example, to <a href="#two">link</a> to the page with an <code>id</code> of "two", my link would have a <code>href="#two"</code> in the code.</p>
+
+                <h3>Show internal pages:</h3>
+                <p><a href="#two" class="ui-btn ui-shadow ui-corner-all">Show page "two"</a></p>
+                <p><a href="#popup" class="ui-btn ui-shadow ui-corner-all" data-rel="dialog" data-transition="pop">Show page "popup" (as a dialog)</a></p>
+            </div><!-- /content -->
+
+            <div data-role="footer" data-theme="a">
+                <h4>Page Footer</h4>
+            </div><!-- /footer -->
+        </div><!-- /page one -->
+
+        <!-- Start of second page: #two -->
+        <div data-role="page" id="two" data-theme="a">
+
+            <script id="hs-template" type="text/x-handlebars-template">
+            {{#each highschools}}
+              <li data-role="collapsible" data-iconpos="right" data-inset="false">
+                <h2>{{name}}</h2>
+                <ul data-role="listview" data-theme="b">
+                  <li><a href="#">{{address}}</a></li>
+                  <li><a href="#">{{website}}</a></li>
+                  <li><a href="#">{{url}}</a></li>
+                </ul>
+              </li>
+            {{/each}}
+            </script>
+
+            <div data-role="header">
+                <h1>Вузы</h1>
+            </div><!-- /header -->
+
+            <div role="main" class="ui-content">
+                <ul data-role="listview" id="hs-list">
+                </ul>
+                <p><a href="#one" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Back to page "one"</a></p>
+            </div><!-- /content -->           
+        </div><!-- /page two -->
+
+        <!-- Start of third page: #popup -->
+        <div data-role="page" id="popup">
+
+            <div data-role="header" data-theme="b">
+                <h1>Dialog</h1>
+            </div><!-- /header -->
+
+            <div role="main" class="ui-content">
+                <h2>Popup</h2>
+                <p>I have an id of "popup" on my page container and only look like a dialog because the link to me had a <code>data-rel="dialog"</code> attribute which gives me this inset look and a <code>data-transition="pop"</code> attribute to change the transition to pop. Without this, I'd be styled as a normal page.</p>
+                <p><a href="#one" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-icon-back ui-btn-icon-left">Back to page "one"</a></p>
+            </div><!-- /content -->
+
+            <div data-role="footer">
+                <h4>Page Footer</h4>
+            </div><!-- /footer -->
+        </div><!-- /page popup -->
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+
+        <script type="text/javascript">
+            $( document ).on( "mobileinit", function() {
+                // Make your jQuery Mobile framework configuration changes here!
+                $.mobile.allowCrossDomainPages = true;
+            });
+
+            var serverUrl = "http://192.168.26.24:8000/";
+            jQuery("#two").on( "pageshow", function( event ) { 
+                var template = Handlebars.compile($("#hs-template").html());
+
+                alert('page loaded');
+                $.ajax({
+                    url: serverUrl + "highschools.json",
+                    dataType: "json",
+                    async: true,
+                    success: function (result) {
+                        alert(result);
+                        var o = {highschools: result};
+                        alert(o.highschools);
+                        jQuery("#hs-list").html(template(o));
+                        alert('hs loaded2');                    
+                    },
+                    error: function (request,error) {
+                        alert('Network error has occurred please try again!');
+                        alert(request);
+                    }
+                });
+             } );
+        </script>
+    </body>
+</html>
