@@ -28,38 +28,45 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    
+
+        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">/-->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        
+        <meta charset="UTF-8">
+
         <link rel="stylesheet" type="text/css" href="css/index.css">
 
         <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css" />
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery.mobile-1.4.5.min.js"></script>
         <script src="js/handlebars-v4.0.2.js"></script>
-        <title>Hello World</title>
+        <title>Кудапоступить.рф</title>
+        <style type="text/css">body { text-transform: none; }</style>
     </head>
     <body>
         <!-- Start of first page: #one -->
-        <div data-role="page" id="one">
+        <div data-role="page" id="home">
 
             <div data-role="header">
-                <h1>Multi-page</h1>
+                <h1 class="ui-title" role="heading">Кудапоступить.рф</h1>
             </div><!-- /header -->
 
             <div role="main" class="ui-content">
-                <h2>One</h2>
+                <p>
+                <center>
+                        <img src="img/logo.png" width="50%" style="max-width: 350px;">
+                        <h2>Кудапоступить.рф</h2>
+                </center>
+                </p>
 
-                <p>I have an <code>id</code> of "one" on my page container. I'm first in the source order so I'm shown when the page loads.</p>
-
-                <p>This is a multi-page boilerplate template that you can copy to build your first jQuery Mobile page. This template contains multiple "page" containers inside, unlike a single page template that has just one page within it.</p>
-                <p>Just view the source and copy the code to get started. All the CSS and JS is linked to the jQuery CDN versions so this is super easy to set up. Remember to include a meta viewport tag in the head to set the zoom level.</p>
-                <p>You link to internal pages by referring to the <code>id</code> of the page you want to show. For example, to <a href="#two">link</a> to the page with an <code>id</code> of "two", my link would have a <code>href="#two"</code> in the code.</p>
-
-                <h3>Show internal pages:</h3>
-                <p><a href="#two" class="ui-btn ui-shadow ui-corner-all">Show page "two"</a></p>
-                <p><a href="#popup" class="ui-btn ui-shadow ui-corner-all" data-rel="dialog" data-transition="pop">Show page "popup" (as a dialog)</a></p>
+                <p><a href="#searchform" class="ui-btn ui-shadow ui-corner-all ui-btn-active">Поиск вузов</a></p>
+                <p><a href="#prof" class="ui-btn ui-shadow ui-corner-all">Профориентация</a></p>
+                <p><a href="#spec" class="ui-btn ui-shadow ui-corner-all">Список специальностей</a></p>
+                <p><a href="#hs" class="ui-btn ui-shadow ui-corner-all">Список вузов</a></p>
             </div><!-- /content -->
 
             <div data-role="footer" data-theme="a">
@@ -68,80 +75,114 @@
         </div><!-- /page one -->
 
         <!-- Start of second page: #two -->
-        <div data-role="page" id="two" data-theme="a">
-
+        <div data-role="page" id="hs" data-theme="a">
             <script id="hs-template" type="text/x-handlebars-template">
             {{#each highschools}}
               <li data-role="collapsible" data-iconpos="right" data-inset="false">
-                <h2>{{name}}</h2>
-                <ul data-role="listview" data-theme="b">
-                  <li><a href="#">{{address}}</a></li>
-                  <li><a href="#">{{website}}</a></li>
-                  <li><a href="#">{{url}}</a></li>
-                </ul>
+                <h2>{{name}}</h2>
+                <ul data-role="listview" data-theme="b">
+                  <li><a href="#">{{address}}</a></li>
+                  <li><a href="#">{{website}}</a></li>
+                  <li><a href="#">{{url}}</a></li>
+                </ul>
               </li>
             {{/each}}
             </script>
-
             <div data-role="header">
-                <h1>Вузы</h1>
+                <h1 class="ui-title" role="heading" role="heading">Вузы</h1>
+                <a href="#home" data-role="button" data-direction="reverse">Назад</a>
             </div><!-- /header -->
-
             <div role="main" class="ui-content">
                 <ul data-role="listview" id="hs-list">
                 </ul>
-                <p><a href="#one" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Back to page "one"</a></p>
+                <p><a href="#home" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Назад</a></p>
             </div><!-- /content -->           
         </div><!-- /page two -->
 
-        <!-- Start of third page: #popup -->
-        <div data-role="page" id="popup">
-
-            <div data-role="header" data-theme="b">
-                <h1>Dialog</h1>
-            </div><!-- /header -->
-
+        <div data-role="page" id="searchform" data-theme="a">
+            <div data-role="header">
+                <h1 class="ui-title" role="heading">Поиск вузов</h1>
+                <a href="#home" data-role="button" data-direction="reverse">Назад</a>
+            </div>
             <div role="main" class="ui-content">
-                <h2>Popup</h2>
-                <p>I have an id of "popup" on my page container and only look like a dialog because the link to me had a <code>data-rel="dialog"</code> attribute which gives me this inset look and a <code>data-transition="pop"</code> attribute to change the transition to pop. Without this, I'd be styled as a normal page.</p>
-                <p><a href="#one" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-icon-back ui-btn-icon-left">Back to page "one"</a></p>
-            </div><!-- /content -->
+                <form class="ui-filterable">
+                    <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                        <li class="ui-field-contain ui-li-static ui-body-inherit ui-first-child">
+                            <div>
+                            <label for="textinput-hide" class="ui-hidden-accessible">Специальность:</label>
+                            <input id="spec-input" name="spec" data-type="search" placeholder="Специальность...">
+                            <ul data-role="listview" id="specs-list" data-inset="true" data-filter="true" data-filter-reveal="true" data-input="#spec-input" class="ui-listview ui-listview">
+                                <script id="specs-list-template" type="text/x-handlebars-template">
+                                {{#each specs}}
+                                  <li><a href="#" onclick="spec_select({{id}});">{{name}}</a></li>
+                                {{/each}}
+                                </script>
+                            </ul>
+                            </div>
+                        </li>
+                        <li class="ui-field-contain ui-li-static ui-body-inherit">
+                            <div class="ui-grid-b">
+                                <div class="ui-block-a">
+                                    <div class="ui-bar">
+                                        <label for="russian">Русский:</label>
+                                        <input type="number" name="russian" pattern="[0-9]*" id="russian" value="70" />
+                                    </div>  
+                                </div>
+                                <div class="ui-block-b">
+                                    <div class="ui-bar">
+                                        <label for="math">Математика:</label>
+                                        <input type="number" name="math" pattern="[0-9]*" id="math" value="70" />
+                                    </div>
+                                </div>
+                                <div class="ui-block-c">
+                                    <div class="ui-bar">
+                                        <label for="physics">Физика:</label>
+                                        <input type="number" name="physics" pattern="[0-9]*" id="physics" value="70" />
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="ui-field-contain ui-li-static ui-body-inherit ui-last-child">
+                            <div>
+                            <label for="slider">Показатель надежности: <a href="#popupInfo" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Узнать больше">Узнать больше</a></label>
+                            <div data-role="popup" id="popupInfo" class="ui-content" data-theme="a" style="max-width:350px;"><p>Я хочу чтобы мои баллы были выше чем у такого количества поступивших</p>
+                            </div>
+                          
+                            <input type="range" name="slider" id="slider" value="50" min="0" max="100" />
+                            </div>
+                        </li>                       
+                    </ul>
+                    <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-active" onclick="send_search();">Поиск</a>
+                </form>
+            </div>
+        </div>
 
-            <div data-role="footer">
-                <h4>Page Footer</h4>
-            </div><!-- /footer -->
-        </div><!-- /page popup -->
+         <div data-role="page" id="results" data-theme="a">
+            <div data-role="header">
+                <h1 class="ui-title" role="heading">Вузы</h1>
+                <a href="#searchform" data-role="button" data-direction="reverse">Назад</a>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <ul data-role="listview" id="results-list" style="background: white; margin: 5px; padding: 5 px;">
+                <script id="results-list-template" type="text/x-handlebars-template">
+                {{#each hsresults}}
+                  <li data-role="collapsible" data-inset="false">
+                    <h1>{{highschool.name}}</h1>
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a"><h2>{{passed1}}</h2></div>
+                        <div class="ui-block-b"><h2>{{passed2}}</h2></div>
+                    </div>
+                    <img src="img/histograms/waves_{{highschool.id}}_{{spec_id}}.png" width="auto"/>
+                  </li>
+                {{/each}}
+                </script>
+                </ul>
+                <p><a href="#one" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Назад</a></p>
+            </div><!-- /content -->           
+        </div>
+
+        <script src="js/main.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-
-        <script type="text/javascript">
-            $( document ).on( "mobileinit", function() {
-                // Make your jQuery Mobile framework configuration changes here!
-                $.mobile.allowCrossDomainPages = true;
-            });
-
-            var serverUrl = "http://192.168.26.24:8000/";
-            jQuery("#two").on( "pageshow", function( event ) { 
-                var template = Handlebars.compile($("#hs-template").html());
-
-                alert('page loaded');
-                $.ajax({
-                    url: serverUrl + "highschools.json",
-                    dataType: "json",
-                    async: true,
-                    success: function (result) {
-                        alert(result);
-                        var o = {highschools: result};
-                        alert(o.highschools);
-                        jQuery("#hs-list").html(template(o));
-                        alert('hs loaded2');                    
-                    },
-                    error: function (request,error) {
-                        alert('Network error has occurred please try again!');
-                        alert(request);
-                    }
-                });
-             } );
-        </script>
     </body>
 </html>
