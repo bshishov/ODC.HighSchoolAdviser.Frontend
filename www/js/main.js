@@ -1,4 +1,5 @@
-var serverUrl = "http://192.168.26.24:8000/";
+//var serverUrl = "http://192.168.26.24:8000/";
+var serverUrl = "http://188.120.255.85/api/"
 var preloaded = {};
 
 var load_resource = function(path, callback)

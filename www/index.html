@@ -34,26 +34,26 @@
         <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">/-->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">        
         
         <meta charset="UTF-8">
-
+        
         <link rel="stylesheet" type="text/css" href="css/index.css">
-
         <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css" />
+
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery.mobile-1.4.5.min.js"></script>
         <script src="js/handlebars-v4.0.2.js"></script>
+        
         <title>Кудапоступить.рф</title>
         <style type="text/css">body { text-transform: none; }</style>
     </head>
-    <body>
-        <!-- Start of first page: #one -->
+    <body>        
         <div data-role="page" id="home">
 
             <div data-role="header">
                 <h1 class="ui-title" role="heading">Кудапоступить.рф</h1>
-            </div><!-- /header -->
+            </div>
 
             <div role="main" class="ui-content">
                 <p>
@@ -67,14 +67,13 @@
                 <p><a href="#prof" class="ui-btn ui-shadow ui-corner-all">Профориентация</a></p>
                 <p><a href="#spec" class="ui-btn ui-shadow ui-corner-all">Список специальностей</a></p>
                 <p><a href="#hs" class="ui-btn ui-shadow ui-corner-all">Список вузов</a></p>
-            </div><!-- /content -->
+            </div>
 
             <div data-role="footer" data-theme="a">
                 <h4>Page Footer</h4>
-            </div><!-- /footer -->
-        </div><!-- /page one -->
-
-        <!-- Start of second page: #two -->
+            </div>
+        </div>
+        
         <div data-role="page" id="hs" data-theme="a">
             <script id="hs-template" type="text/x-handlebars-template">
             {{#each highschools}}
@@ -91,13 +90,13 @@
             <div data-role="header">
                 <h1 class="ui-title" role="heading" role="heading">Вузы</h1>
                 <a href="#home" data-role="button" data-direction="reverse">Назад</a>
-            </div><!-- /header -->
+            </div>
             <div role="main" class="ui-content">
                 <ul data-role="listview" id="hs-list">
                 </ul>
                 <p><a href="#home" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Назад</a></p>
-            </div><!-- /content -->           
-        </div><!-- /page two -->
+            </div>
+        </div>
 
         <div data-role="page" id="searchform" data-theme="a">
             <div data-role="header">
