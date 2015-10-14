@@ -1,4 +1,3 @@
-//var serverUrl = "http://192.168.26.24:8000/";
 var serverUrl = "http://188.120.255.85/api/"
 var preloaded = {};
 
@@ -33,8 +32,7 @@ function loading(showOrHide) {
 }
 
 var selected_spec = null;
-function spec_select(id) {
-    //alert(id);
+function spec_select(id) {    
     selected_spec = id;
     $("#spec_input").val(id);
 }
@@ -44,15 +42,14 @@ function send_search(){
     russian = $("#russian").val();
     physics = $("#physics").val();
     preloaded.sum = parseInt(math) + parseInt(russian) + parseInt(physics);
-    path = String.format("search/{0}.json?sum={1}", selected_spec, preloaded.sum);
+    path = "search/" + selected_spec + ".json/?sum=" + preloaded.sum;    
     load_resource(path, function(data) {
         preloaded.results = data;
         $.mobile.navigate( "#results" );       
     });
 } 
 
-$("#results").on( "pageshow", function( event ) { 
-    // preloaded.results
+$("#results").on( "pageshow", function( event ) {     
     var input = preloaded.results;
     var hs = {};
     var hsid;
@@ -116,18 +113,3 @@ $("#hs").on( "pageshow", function( event ) {
         $("#hs-list").html(template(o));
     });
 });
-
-
-
-
-if (!String.format) {
-  String.format = function(format) {
-    var args = Array.prototype.slice.call(arguments, 1);
-    return format.replace(/{(\d+)}/g, function(match, number) { 
-      return typeof args[number] != 'undefined'
-        ? args[number] 
-        : match
-      ;
-    });
-  };
-}

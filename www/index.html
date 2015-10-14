@@ -38,8 +38,9 @@
         
         <meta charset="UTF-8">
         
-        <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">        
 
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery.mobile-1.4.5.min.js"></script>
@@ -74,27 +75,24 @@
             </div>
         </div>
         
-        <div data-role="page" id="hs" data-theme="a">
-            <script id="hs-template" type="text/x-handlebars-template">
-            {{#each highschools}}
-              <li data-role="collapsible" data-iconpos="right" data-inset="false">
-                <h2>{{name}}</h2>
-                <ul data-role="listview" data-theme="b">
-                  <li><a href="#">{{address}}</a></li>
-                  <li><a href="#">{{website}}</a></li>
-                  <li><a href="#">{{url}}</a></li>
-                </ul>
-              </li>
-            {{/each}}
-            </script>
+        <div data-role="page" id="hs" data-theme="a">            
             <div data-role="header">
                 <h1 class="ui-title" role="heading" role="heading">Вузы</h1>
                 <a href="#home" data-role="button" data-direction="reverse">Назад</a>
             </div>
-            <div role="main" class="ui-content">
-                <ul data-role="listview" id="hs-list">
-                </ul>
-                <p><a href="#home" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Назад</a></p>
+            <div role="main" class="ui-content">           
+                <div id="hs-list">
+                <script id="hs-template" type="text/x-handlebars-template">
+                    {{#each highschools}}
+                    <div class="card">
+                        <h1>{{name}}</h1>
+                        <p>{{address}}</p>
+                        <p><a href="{{website}}">{{website}}</a></p>                    
+                    </div>
+                    {{/each}}
+                </script>     
+                </div>
+                <p><a href="#" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all">Показать еще</a></p>                
             </div>
         </div>
 
