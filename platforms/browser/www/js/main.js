@@ -106,10 +106,17 @@ $( "#searchform" ).on( "pagecreate", function() {
     load_resource("spec_groups.json", function( data ) { preloaded.spec_groups = data; });
 });
 
-$("#hs").on( "pageshow", function( event ) { 
-    var template = Handlebars.compile($("#hs-template").html());
-    load_resource("highschools.json", function (data) {
-        var o = {highschools: data};
-        $("#hs-list").html(template(o));
-    });
+// HIGHSCHOOLS LIST
+var hstemplate = Handlebars.compile($("#hs-template").html());
+var hspage = 1;
+
+$("#hs").on( "pageshow", function( event ) {
+    load_hs();
 });
+
+var load_hs = function() {        
+    load_resource("highschools.json?page=" + hspage, function (data) {        
+        $("#hs-list").append(hstemplate(data));
+    });
+    hspage += 1;
+};

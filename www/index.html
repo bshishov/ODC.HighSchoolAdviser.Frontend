@@ -1,37 +1,13 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy        
         -->
         <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-    
-
         <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">/-->
+
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">        
@@ -51,28 +27,22 @@
     </head>
     <body>        
         <div data-role="page" id="home">
-
             <div data-role="header">
                 <h1 class="ui-title" role="heading">Кудапоступить.рф</h1>
             </div>
-
             <div role="main" class="ui-content">
                 <p>
-                <center>
+                    <center>
                         <img src="img/logo.png" width="50%" style="max-width: 350px;">
                         <h2>Кудапоступить.рф</h2>
-                </center>
+                    </center>
                 </p>
 
                 <p><a href="#searchform" class="ui-btn ui-shadow ui-corner-all ui-btn-active">Поиск вузов</a></p>
                 <p><a href="#prof" class="ui-btn ui-shadow ui-corner-all">Профориентация</a></p>
                 <p><a href="#spec" class="ui-btn ui-shadow ui-corner-all">Список специальностей</a></p>
                 <p><a href="#hs" class="ui-btn ui-shadow ui-corner-all">Список вузов</a></p>
-            </div>
-
-            <div data-role="footer" data-theme="a">
-                <h4>Page Footer</h4>
-            </div>
+            </div>            
         </div>
         
         <div data-role="page" id="hs" data-theme="a">            
@@ -80,19 +50,18 @@
                 <h1 class="ui-title" role="heading" role="heading">Вузы</h1>
                 <a href="#home" data-role="button" data-direction="reverse">Назад</a>
             </div>
-            <div role="main" class="ui-content">           
-                <div id="hs-list">
+            <div role="main" class="ui-content">
                 <script id="hs-template" type="text/x-handlebars-template">
-                    {{#each highschools}}
+                    {{#each results}}
                     <div class="card">
                         <h1>{{name}}</h1>
                         <p>{{address}}</p>
                         <p><a href="{{website}}">{{website}}</a></p>                    
                     </div>
                     {{/each}}
-                </script>     
-                </div>
-                <p><a href="#" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all">Показать еще</a></p>                
+                </script>      
+                <div id="hs-list"></div>
+                <p><a href="#" data-direction="reverse" onclick="load_hs();" class="ui-btn ui-shadow ui-corner-all">Загрузить еще</a></p>
             </div>
         </div>
 

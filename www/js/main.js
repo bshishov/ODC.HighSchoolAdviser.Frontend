@@ -95,21 +95,30 @@ $("#results").on( "pageshow", function( event ) {
     $("#results-list").html(template(preloaded));
 });
 
+// SEARCHFORM
 $( "#searchform" ).on( "pagecreate", function() {
     load_resource("specs.json", function( data ) { 
+        /* TODO REMOVE PAGINATION */
         var template = Handlebars.compile($("#specs-list-template").html());
-        preloaded.specs = data; 
+        preloaded.specs = data.results; 
         $("#specs-list").html(template(preloaded));
         $("#specs-list").listview( "refresh" );
         $("#specs-list").trigger( "updatelayout");
     });
-    load_resource("spec_groups.json", function( data ) { preloaded.spec_groups = data; });
+    load_resource("spec_groups.json", function( data ) { preloaded.spec_groups = data.results; });
 });
 
-$("#hs").on( "pageshow", function( event ) { 
-    var template = Handlebars.compile($("#hs-template").html());
-    load_resource("highschools.json", function (data) {
-        var o = {highschools: data};
-        $("#hs-list").html(template(o));
-    });
+// HIGHSCHOOLS LIST
+var hstemplate = Handlebars.compile($("#hs-template").html());
+var hspage = 1;
+
+$("#hs").on( "pageshow", function( event ) {
+    load_hs();
 });
+
+var load_hs = function() {        
+    load_resource("highschools.json?page=" + hspage, function (data) {        
+        $("#hs-list").append(hstemplate(data));
+    });
+    hspage += 1;
+};
