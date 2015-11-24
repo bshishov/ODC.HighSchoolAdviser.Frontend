@@ -1,8 +1,9 @@
-var serverUrl = "http://188.120.255.85/api/"
+var serverUrl = "http://188.120.255.85:8000/api/"
 var preloaded = {};
 
 var load_resource = function(path, callback)
 {
+    console.log("Loading: " + path);
     $.ajax({
         url: serverUrl + path,
         dataType: "json",
@@ -14,6 +15,7 @@ var load_resource = function(path, callback)
         },
         error: function (request,error) {
             alert('Network error has occurred please try again!');
+            console.log(error);
         }
     });
 };
@@ -40,59 +42,17 @@ function spec_select(id) {
 function send_search(){
     math = $("#math").val();
     russian = $("#russian").val();
-    physics = $("#physics").val();
-    preloaded.sum = parseInt(math) + parseInt(russian) + parseInt(physics);
-    path = "search/" + selected_spec + ".json/?sum=" + preloaded.sum;    
+    physics = $("#physics").val();        
+    path = "result/percents.json/?specs=" + selected_spec + "&math=" + math + "&russian=" + russian + "&physics=" + physics;    
     load_resource(path, function(data) {
         preloaded.results = data;
         $.mobile.navigate( "#results" );       
     });
 } 
 
-$("#results").on( "pageshow", function( event ) {     
-    var input = preloaded.results;
-    var hs = {};
-    var hsid;
-    for (var i = 0; i < input.length; i++) {
-        if(!hs.hasOwnProperty(input[i].highschool.id))
-        {
-            hs[input[i].highschool.id] = { 
-                enrollee1: [],
-                enrollee2: [],
-                highschool: input[i].highschool,
-                spec_id: input[i].spec_id
-                };
-        }
-        if(input[i].result_type == 1)
-            hs[input[i].highschool.id].enrollee1.push(input[i]);
-        else
-            hs[input[i].highschool.id].enrollee2.push(input[i]); 
-          //  hs[input[i].highschool] = input[i];
-    };
-
-    for (var id in hs) {
-        current = hs[id];
-
-        wavePassed = 0;
-        for (var j = 0; j < current.enrollee1.length; j++) {
-            if(current.enrollee1[j].total <= preloaded.sum)
-                wavePassed += 1;
-        }
-        hs[id].passed1 = (wavePassed / current.enrollee1.length * 100).toFixed(1);
-        hs[id].passed1Count = current.enrollee1.length;
-
-        wavePassed = 0;
-        for (var j = 0; j < current.enrollee2.length; j++) {
-            if(current.enrollee2[j].total <= preloaded.sum)
-                wavePassed += 1;
-        }
-        hs[id].passed2 = (wavePassed / current.enrollee2.length * 100).toFixed(1);
-        hs[id].passed2Count = current.enrollee2.length;
-    }
-
-    preloaded.hsresults = hs;
+$("#results").on( "pageshow", function( event ) {         
     var template = Handlebars.compile($("#results-list-template").html());
-    $("#results-list").html(template(preloaded));
+    $("#results-list").html(template(preloaded.results));
 });
 
 // SEARCHFORM
@@ -105,7 +65,7 @@ $( "#searchform" ).on( "pagecreate", function() {
         $("#specs-list").listview( "refresh" );
         $("#specs-list").trigger( "updatelayout");
     });
-    load_resource("spec_groups.json", function( data ) { preloaded.spec_groups = data.results; });
+    load_resource("groups.json", function( data ) { preloaded.spec_groups = data.results; });
 });
 
 // HIGHSCHOOLS LIST

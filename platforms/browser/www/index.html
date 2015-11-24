@@ -22,19 +22,19 @@
         <script src="js/jquery.mobile-1.4.5.min.js"></script>
         <script src="js/handlebars-v4.0.2.js"></script>
         
-        <title>Кудапоступить.рф</title>
+        <title>Хочупоступить.рф</title>
         <style type="text/css">body { text-transform: none; }</style>
     </head>
     <body>        
         <div data-role="page" id="home">
             <div data-role="header">
-                <h1 class="ui-title" role="heading">Кудапоступить.рф</h1>
+                <h1 class="ui-title" role="heading">Хочупоступить.рф</h1>
             </div>
             <div role="main" class="ui-content">
                 <p>
                     <center>
                         <img src="img/logo.png" width="50%" style="max-width: 350px;">
-                        <h2>Кудапоступить.рф</h2>
+                        <h2>Хочупоступить.рф</h2>
                     </center>
                 </p>
 
@@ -131,12 +131,12 @@
             <div role="main" class="ui-content">
                 <ul data-role="listview" id="results-list" style="background: white; margin: 5px; padding: 5 px;">
                 <script id="results-list-template" type="text/x-handlebars-template">
-                {{#each hsresults}}
+                {{#each results}}
                   <li data-role="collapsible" data-inset="false">
                     <h1>{{highschool.name}}</h1>
                     <div class="ui-grid-a">
-                        <div class="ui-block-a"><h2>{{passed1}}</h2></div>
-                        <div class="ui-block-b"><h2>{{passed2}}</h2></div>
+                        <div class="ui-block-a"><h2>{{good1}}</h2></div>
+                        <div class="ui-block-b"><h2>{{good2}}</h2></div>
                     </div>
                     <img src="img/histograms/waves_{{highschool.id}}_{{spec_id}}.png" width="auto"/>
                   </li>

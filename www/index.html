@@ -131,12 +131,12 @@
             <div role="main" class="ui-content">
                 <ul data-role="listview" id="results-list" style="background: white; margin: 5px; padding: 5 px;">
                 <script id="results-list-template" type="text/x-handlebars-template">
-                {{#each hsresults}}
+                {{#each results}}
                   <li data-role="collapsible" data-inset="false">
                     <h1>{{highschool.name}}</h1>
                     <div class="ui-grid-a">
-                        <div class="ui-block-a"><h2>{{passed1}}</h2></div>
-                        <div class="ui-block-b"><h2>{{passed2}}</h2></div>
+                        <div class="ui-block-a"><h2>{{good1}}</h2></div>
+                        <div class="ui-block-b"><h2>{{good2}}</h2></div>
                     </div>
                     <img src="img/histograms/waves_{{highschool.id}}_{{spec_id}}.png" width="auto"/>
                   </li>
