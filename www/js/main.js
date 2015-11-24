@@ -38,14 +38,36 @@ $('#searchButton').on('click', function () {
 	proceedArgs();
 	
 	loadResource("result/bins.json/?" + args, function(data) {	
-		data.count = data.results.length;
+		var filtered = {};
+		
+		filtered.results = [];
 
-		$("#results").html(resultsTemplate(data));
-		console.log(data);
+		for (var i = 0; i < data.results.length; i++) {
+			var res = data.results[i];
+			if(jQuery.isEmptyObject(res.points))
+			{
+				console.log("Found empty result");
+				console.log(res);
+				continue;
+			}
+
+			filtered.results.push(res);
+		}
+
+		filtered.count = filtered.results.length;		
+
+		$("#results").html(resultsTemplate(filtered));
+		console.log(filtered);
 		$btn.button('reset');		    	
 		
-		for (var i = 0; i < data.count; i++) {
-			var res = data.results[i];
+		for (var i = 0; i < filtered.results.length; i++) {
+			var res = filtered.results[i];
+			
+			if(jQuery.isEmptyObject(res.points))
+			{
+				console.log("Found empty result");
+				filtered.count -=1;
+			}
 			
 			if(res.points.percent1 == undefined)
 				continue;
@@ -142,17 +164,37 @@ var loadResource = function(path, onsuccess, onerror)
 };
 
 loadResource("specs.json", function(data) {
+	var avail = [10301, 10302, 10304, 50301, 50306, 70301, 80301, 90301, 90302, 90303, 90304, 100301, 110301, 110302, 110304, 120301, 120304, 130301, 130302, 130303, 140301, 150301, 150302, 150303, 150304, 150306, 160301, 180301, 180302, 190301, 200301, 210301, 240303, 250301, 270301, 270304, 380301, 380302, 380305, 400301, 420301];
+
+    filtered = [];
+
 	for (var i = data.length - 1; i >= 0; i--) {
-		data[i].text = data[i].name;
+		data[i].text = data[i].name;		
+		
+		//if( data[i].name.indexOf("информ") > -1)
+		if(avail.contains(data[i].id)) {			
+			filtered.push(data[i]);
+		}
 	};
 
 	$("#specs").select2({
 	  placeholder: "Выберите специальность",
 	  multiple: true,
-	  data: data,
+	  data: filtered,
 	  maximumSelectionLength: 5
 	});
 }, function(error) {
 	$('#searchError').show('slow');	
 	$btn.button('reset');
 });
+
+
+Array.prototype.contains = function(obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
