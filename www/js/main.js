@@ -4,6 +4,7 @@ var resultsTemplate = Handlebars.compile($("#results-template").html());
 var specsTemplate = Handlebars.compile($("#specs-template").html());	
 var egeTemplate = Handlebars.compile($("#ege-template").html());
 var args = "";
+var specs;
 
 $('#addEgeButton').on('click', function () {
 	
@@ -93,9 +94,12 @@ var loadSpecs = function(id) {
 			for(var id in data.results[0].specs)
 			{
 				var res = data.results[0].specs[id];
+
 				bindGauge('#result-' + hsid + ' #spec-' + id + ' .chart1', res.points.percent1);
 				bindGauge('#result-' + hsid + ' #spec-' + id + ' .chart2', res.points.percent2);
 				bindChart('#result-' + hsid + ' #spec-' + id + ' .chart3', res);		
+				
+				$('#specs-' + hsid + ' #spec-' + id + ' h3').html(specs[id].name);
 			}			
 		}, 
 		function(error){
@@ -167,10 +171,11 @@ loadResource("specs.json", function(data) {
 	var avail = [10301, 10302, 10304, 50301, 50306, 70301, 80301, 90301, 90302, 90303, 90304, 100301, 110301, 110302, 110304, 120301, 120304, 130301, 130302, 130303, 140301, 150301, 150302, 150303, 150304, 150306, 160301, 180301, 180302, 190301, 200301, 210301, 240303, 250301, 270301, 270304, 380301, 380302, 380305, 400301, 420301];
 
     filtered = [];
+    specs = {};
 
 	for (var i = data.length - 1; i >= 0; i--) {
 		data[i].text = data[i].name;		
-		
+		specs[data[i].id] = data[i];
 		//if( data[i].name.indexOf("информ") > -1)
 		if(avail.contains(data[i].id)) {			
 			filtered.push(data[i]);
