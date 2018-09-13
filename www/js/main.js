@@ -34,8 +34,7 @@ var proceedArgs = function()
 		args = args.substring(0, args.length - 1);
 }
 
-$('#searchButton').on('click', function () {
-	var $btn = $(this).button('loading');	
+$('#searchButton').on('click', function () {	
 	proceedArgs();
 	
 	loadResource("result/bins.json/?" + args, function(data) {	
@@ -59,7 +58,7 @@ $('#searchButton').on('click', function () {
 
 		$("#results").html(resultsTemplate(filtered));
 		console.log(filtered);
-		$btn.button('reset');		    	
+		
 		
 		for (var i = 0; i < filtered.results.length; i++) {
 			var res = filtered.results[i];
